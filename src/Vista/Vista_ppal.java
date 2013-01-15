@@ -76,6 +76,7 @@ public class Vista_ppal extends javax.swing.JFrame {
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(15);
+        jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
         jTextArea1.setWrapStyleWord(true);
         jTextArea1.setAutoscrolls(false);
@@ -288,7 +289,11 @@ public class Vista_ppal extends javax.swing.JFrame {
     
     public void setPercetCompleted(int width){
         jProgressBar1.setValue(width);
-    }            
+    } 
+    
+     public int getPercetCompleted(){
+        return jProgressBar1.getValue();
+    }   
     
     public void addSubmitListener(ActionListener acept){
         jButton1.addActionListener(acept);
