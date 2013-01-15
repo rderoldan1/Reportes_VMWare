@@ -50,12 +50,12 @@ public class Control_ppal {
             String user = "";
             String pass = "";
             ip = "";
-            System.out.println(pass);
+            //System.out.println(pass);
             try{
               user = m_vista.getUser();  
               pass = m_vista.getPassword();
               ip = m_vista.getDNSName();
-              m_vista.setLogText(user+pass+ip); 
+              //m_vista.setLogText(user+pass+ip); 
               loggin(user, pass, ip); 
             }catch(Exception ex){
                 
@@ -88,24 +88,26 @@ public class Control_ppal {
             Sheet sheet2 = wb.createSheet("Balance Memoria Procesador");
             Sheet sheet3 = wb.createSheet("Almacenamiento");
             sheet1 = VCenterInfo(si, sheet1);
-            progress(m_vista.getPercetCompleted()-30);
+            progress(30 - m_vista.getPercetCompleted());
             sheet2 = hoja2(si, sheet2);
-            progress(m_vista.getPercetCompleted()-60);
+            progress(60 - m_vista.getPercetCompleted());
             sheet3 = hoja3(si, sheet3);
-            progress(m_vista.getPercetCompleted()-90);
+            progress(90 - m_vista.getPercetCompleted());
             autoSize(wb);
             
-            
+            Calendar cal = Calendar.getInstance();
+            int month = cal.get(Calendar.MONTH) + 1;
+            int year = cal.get(Calendar.YEAR);
             FileOutputStream fileOut;
-            progress(m_vista.getPercetCompleted()-95);
+            progress(95 - m_vista.getPercetCompleted());
             String a = System.getProperty("user.home")+"\\Desktop";
             createDirectoryIfNeeded(a+"\\Reportes");
             System.out.println(a);
-            String name = a+"\\Reportes\\"+createName()+".xls";
+            String name = a+"\\Reportes\\"+year+"\\"+month+"\\"+createName()+".xls";
             fileOut = new FileOutputStream(name);
             wb.write(fileOut);
             fileOut.close();
-            progress(m_vista.getPercetCompleted()-100);
+            progress(100 - m_vista.getPercetCompleted());
             log("Reporte creado exitosamente:"+ name);
         } catch (FileNotFoundException ex) {
             
@@ -425,22 +427,40 @@ public class Control_ppal {
     private void progress(int increment){
         int actual = m_vista.getPercetCompleted();
         m_vista.setPercetCompleted(actual + increment);
+        
     }
     
     private void log(String message){
         m_vista.setAppendLogText(message+"\n");
     }
     
-    private void createDirectoryIfNeeded(String directoryName)
-     {
+    private void createDirectoryIfNeeded(String directoryName){
+         Calendar cal = Calendar.getInstance();
+         int month = cal.get(Calendar.MONTH) + 1;
+         int year = cal.get(Calendar.YEAR);
+         
          File theDir = new File(directoryName);
+         File dirYear = new File(directoryName+"\\"+year);
+         File dirMonth = new File(directoryName+"\\"+year+"\\"+month);
          
          // if the directory does not exist, create it
          if (!theDir.exists())
          {
-             System.out.println("creating directory: " + directoryName);
-             log("creating directory: " + directoryName);
+            
+             log("Creando carpeta para Reportes");
              theDir.mkdir();
+         }
+         if (!dirYear.exists())
+         {
+             
+             log("Creando carpeta para año " );
+             dirYear.mkdir();
+         }
+         if (!dirMonth.exists())
+         {
+            
+             log("Creando carpeta para mes ");
+             dirMonth.mkdir();
          }
      }
     
