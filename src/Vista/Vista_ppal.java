@@ -5,6 +5,7 @@
 package Vista;
 
 import java.awt.event.ActionListener;
+import javax.swing.UIManager;
 
 /**
  *
@@ -16,6 +17,10 @@ public class Vista_ppal extends javax.swing.JFrame {
      * Creates new form Vista_ppal
      */
     public Vista_ppal() {
+         try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (Exception e){
+        }
         initComponents();
     }
 

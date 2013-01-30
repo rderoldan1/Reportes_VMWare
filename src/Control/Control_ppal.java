@@ -369,7 +369,7 @@ public class Control_ppal {
             
             row = sheet.createRow(0); 
              sheet.addMergedRegion(new CellRangeAddress(0,0,0,6));
-            row.createCell(0).setCellValue("Información EVA Servicios Nutresa");
+            //row.createCell(0).setCellValue("Información EVA Servicios Nutresa");
             
             row = sheet.createRow(1);
             row.createCell(0).setCellValue("% HA");
